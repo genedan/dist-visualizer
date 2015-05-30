@@ -17,8 +17,10 @@ shinyServer(function(input, output) {
     if(input$Distribution == "Tweedie")
     {
       x    <-   rtweedie(input$observations,input$power,input$mu,input$phi)
-    } else {
+    } else if(input$Distribution == "Beta"){
       x    <-   rbeta(input$observations,input$alpha,input$beta)
+    } else if(input$Distribution == "Binomial"){
+      x <- rbinom(input$observations, input$trials, input$probsuccess) 
     }
     
     bins <- seq(min(x), max(x), length.out = input$bins + 1)

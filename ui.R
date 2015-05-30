@@ -9,7 +9,7 @@ shinyUI(fluidPage(
   # Sidebar with a slider input for the number of bins
   sidebarLayout(
     sidebarPanel(
-      selectInput("Distribution","Distribution",c("Beta","Tweedie"),selected="Tweedie"),
+      selectInput("Distribution","Distribution",c("Beta","Binomial","Tweedie"),selected="Beta"),
       sliderInput("bins",
                   "Number of bins:",
                   min = 1,
@@ -39,7 +39,23 @@ shinyUI(fluidPage(
                     value = 2.5,
                     step = .1)
         ),
-      
+      # Panels to be displayed for Binomial
+      conditionalPanel(
+        condition = "input.Distribution == 'Binomial'",
+        sliderInput("trials",
+                    "Number of trials:",
+                    min = 0,
+                    max = 10000,
+                    value = 10,
+                    step = 1)
+        ,
+        sliderInput("probsuccess",
+                    "Probability of Sucess:",
+                    min = 0,
+                    max = 1,
+                    step = .01,
+                    value = .5)
+        ),
       # Panels to be displayed for Tweedie
       conditionalPanel(
         condition = "input.Distribution == 'Tweedie'",
